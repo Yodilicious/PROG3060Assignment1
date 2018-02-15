@@ -1,0 +1,9 @@
+package prog3060.assignment1.jvisser.servlets;
+
+import javax.servlet.http.HttpServlet;
+
+public class GeographicAreaClassification extends HttpServlet {
+
+	@Override
+	protected void doGet(HttpServletRequest req, )
+}
