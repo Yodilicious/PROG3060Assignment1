@@ -1,0 +1,17 @@
+package prog3060.assignment1.jvisser.models;
+
+public class IndividualGeoAreaDetailsBean {
+
+	private String name;
+	private String code;
+	private String level;
+	private int population;
+	
+	public void setName(String value) {
+		this.name = value;
+	}
+	
+	public String getName() {
+		return this.name;
+	}
+}

@@ -1,0 +1,23 @@
+package prog3060.assignment1.jvisser.models;
+
+public class GeographicAreaClassifications {
+
+	private int level;
+	private String name;
+	
+	public void setLevel(int value) {
+		this.level = value;
+	}
+	
+	public int getLevel() {
+		return this.level;
+	}
+	
+	public void setName(String value) {
+		this.name = value;
+	}
+	
+	public String getName() {
+		return this.name;
+	}
+}

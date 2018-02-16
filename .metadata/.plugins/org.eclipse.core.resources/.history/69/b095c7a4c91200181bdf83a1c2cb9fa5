@@ -1,0 +1,99 @@
+package prog3060.assignment1.jvisser.dao;
+
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.*;
+
+
+import prog3060.assignment1.jvisser.models.GeoAreaClass;
+
+public class ApplicationDao {
+
+	private static PreparedStatement GetSQLSelectPreparedStatement(Connection tempConnection) throws SQLException
+    {
+        String tempSQLSelectQuery = "SELECT GEOGRAPHICAREAID, LEVEL, NAME FROM GEOGRAPHICAREA ORDER BY LEVEL ASC";
+
+        PreparedStatement tempPreparedStatement = tempConnection.prepareStatement(tempSQLSelectQuery);
+
+        return tempPreparedStatement;
+    }
+	
+	public List<GeoAreaClass> GeographicAreaClassifications() {
+		
+		List<GeoAreaClass> tempList = new ArrayList<GeoAreaClass>();
+		
+		try (Connection connection = DBConnection.getConnectionToDatabase();
+                PreparedStatement preparedStatement = GetSQLSelectPreparedStatement(connection);
+                ResultSet resultSet = preparedStatement.executeQuery())
+        {
+			int id = 0;
+			int level = 0;
+            String name = "";
+            
+
+            while (resultSet.next())
+            {
+            	id = resultSet.getInt("level");
+                level = resultSet.getInt("level");
+                name = resultSet.getString("name");
+
+                GeoAreaClass temp = new GeoAreaClass();
+                
+                temp.setLevel(level);
+                temp.setName(name);
+                
+                tempList.add(temp);
+            }
+
+            connection.rollback();
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+		
+		/*
+		List<GeoAreaClass> temp = new ArrayList<GeoAreaClass>();
+		
+		GeoAreaClass test1 = new GeoAreaClass();
+		test1.setLevel(1);
+		test1.setName("Ontario");
+		
+		GeoAreaClass test2 = new GeoAreaClass();
+		test2.setLevel(1);
+		test2.setName("Newfoundland");
+		
+		GeoAreaClass test3 = new GeoAreaClass();
+		test3.setLevel(1);
+		test3.setName("Quebec");
+		
+		GeoAreaClass test4 = new GeoAreaClass();
+		test4.setLevel(2);
+		test4.setName("Woodstock");
+		
+		GeoAreaClass test5 = new GeoAreaClass();
+		test5.setLevel(2);
+		test5.setName("London");
+		
+		GeoAreaClass test6 = new GeoAreaClass();
+		test6.setLevel(2);
+		test6.setName("Toronto");
+		
+		temp.add(test1);
+		temp.add(test2);
+		temp.add(test3);
+		temp.add(test4);
+		temp.add(test5);
+		temp.add(test6);
+		*/
+		
+		return tempList;
+	}
+}

@@ -1,0 +1,117 @@
+package prog3060.assignment1.jvisser.dao;
+
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.*;
+
+
+import prog3060.assignment1.jvisser.models.GeoAreaClassBean;
+import prog3060.assignment1.jvisser.models.IndividualGeoAreaDetailsBean;
+
+public class ApplicationDao {
+
+	private static PreparedStatement GetGeographicAreaClassifications(Connection connection) throws SQLException
+    {
+        String sqlSelectQuery = "SELECT GEOGRAPHICAREAID, LEVEL, NAME FROM GEOGRAPHICAREA ORDER BY LEVEL ASC";
+
+        PreparedStatement preparedStatement = connection.prepareStatement(sqlSelectQuery);
+
+        return preparedStatement;
+    }
+	
+	private static PreparedStatement GetIndividualGeographicAreaDetails(Connection connection, String geographicAreaId) throws SQLException
+    {
+        String sqlSelectQuery = "SELECT G.NAME, G.CODE, G.LEVEL, A.COMBINED FROM GEOGRAPHICAREA As G JOIN AGE As A ON G.GEOGRAPHICAREAID = A.GEOGRAPHICAREA JOIN CENSUSYEAR As Y ON A.CENSUSYEAR = Y.CENSUSYEARID WHERE A.AGEGROUP = 1 AND Y.CENSUSYEAR = 2016 AND G.GEOGRAPHICAREAID = ?";
+
+        PreparedStatement preparedStatement = connection.prepareStatement(sqlSelectQuery);
+
+        preparedStatement.setString(1, geographicAreaId);
+        
+        return preparedStatement;
+    }
+	
+	public List<GeoAreaClassBean> GeographicAreaClassifications() {
+		
+		List<GeoAreaClassBean> tempList = new ArrayList<GeoAreaClassBean>();
+		
+		try (Connection connection = DBConnection.getConnectionToDatabase();
+                PreparedStatement preparedStatement = GetGeographicAreaClassifications(connection);
+                ResultSet resultSet = preparedStatement.executeQuery())
+        {
+			int id = 0;
+			int level = 0;
+            String name = "";
+
+            while (resultSet.next())
+            {
+            	id = resultSet.getInt("geographicareaid");
+                level = resultSet.getInt("level");
+                name = resultSet.getString("name");
+
+                GeoAreaClassBean temp = new GeoAreaClassBean();
+                
+                temp.setGeographicAreaId(id);
+                temp.setLevel(level);
+                temp.setName(name);
+                
+                tempList.add(temp);
+            }
+
+            connection.rollback();
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+						
+		return tempList;
+	}
+	
+	public List<GeoAreaClassBean> IndividualGeographicAreaDetails(String geographicAreaId) {
+		
+		List<IndividualGeoAreaDetailsBean> tempList = new ArrayList<IndividualGeoAreaDetailsBean>();
+		
+		try (Connection connection = DBConnection.getConnectionToDatabase();
+                PreparedStatement preparedStatement = GetIndividualGeographicAreaDetails(connection, geographicAreaId);
+                ResultSet resultSet = preparedStatement.executeQuery())
+        {
+			int id = 0;
+			int level = 0;
+            String name = "";
+
+            while (resultSet.next())
+            {
+            	id = resultSet.getInt("geographicareaid");
+                level = resultSet.getInt("level");
+                name = resultSet.getString("name");
+
+                GeoAreaClassBean temp = new GeoAreaClassBean();
+                
+                temp.setGeographicAreaId(id);
+                temp.setLevel(level);
+                temp.setName(name);
+                
+                tempList.add(temp);
+            }
+
+            connection.rollback();
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+						
+		return tempList;
+	}
+}

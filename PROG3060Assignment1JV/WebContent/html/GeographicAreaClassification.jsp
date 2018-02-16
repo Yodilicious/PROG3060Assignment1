@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+    pageEncoding="ISO-8859-1" import="java.util.*,prog3060.assignment1.jvisser.models.GeoAreaClassBean" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -7,12 +7,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <link href="PROG3060Assignment1JV/css/main.css" rel="stylesheet">
-<title>Insert title here</title>
+<title>Assignment 1 - Canada Census</title>
 </head>
 <body>
     
     <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
-      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Assignment 1</a>
+      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Assignment 1 - Canada Census</a>
       <ul class="navbar-nav px-3">
         <li class="nav-item text-nowrap">
           <a class="nav-link" href="#">Sign out</a>
@@ -26,19 +26,13 @@
           <div class="sidebar-sticky">
             <ul class="nav flex-column">
               <li class="nav-item">
-                <a class="nav-link active" href="#">
+                <a class="nav-link active" href="/PROG3060Assignment1JV">
                   <span data-feather="layers"></span>
                   Geographic Area Classification<span class="sr-only">(current)</span>
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">
-                  <span data-feather="users"></span>
-                  Individual Geographic Area
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="/PROG3060Assignment1JV/ageGroup">
                   <span data-feather="bar-chart-2"></span>
                   Age Group 
                 </a>
@@ -46,10 +40,42 @@
             </ul>
           </div>
         </nav>
-
+                
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
           <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-            <h1 class="h2">Dashboard</h1>
+            <h1 class="h2">Geographic Area Classification</h1>                       
+          </div>
+          <div class="row">
+          	<div class="col-md-12">
+          		<table class="table">
+				  <thead class="thead-dark">
+				    <tr>
+				      <th scope="col">Level</th>
+				      <th scope="col">Name</th>
+				    </tr>
+				  </thead>
+				  <tbody>
+				  	<%
+			       		List<GeoAreaClassBean> geoAreas = (ArrayList)request.getAttribute("geoArea");
+			       
+			      		Iterator<GeoAreaClassBean> iterator = geoAreas.iterator();
+			      		
+			      		while(iterator.hasNext()) {
+			      			GeoAreaClassBean geoArea = iterator.next();	
+			      		
+			       	%>
+				    <tr>
+				      <td><%=geoArea.getLevel()%></td>
+				      <td>
+				      	<a class="nav-link" href="igad?gaid=<%=geoArea.getGeographicAreaId()%>"><%=geoArea.getName()%></a>
+				      </td>
+				    </tr>
+				    <%
+			      		}
+				    %>
+				  </tbody>
+				</table>
+          	</div>
           </div>
         </main>
       </div>
