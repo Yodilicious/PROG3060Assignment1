@@ -1,3 +1,11 @@
+<!--
+ *  PROG3060
+ *   @author Jodi Visser
+ *   Assignment 1: JDBC Web Application using CanadaCensusDB
+ *		IndividualGeographicAreaDetails.jsp
+ *   	Date Created: February 16, 2018
+-->
+
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1" import="java.util.*,prog3060.assignment1.jvisser.models.IndividualGeoAreaDetailsBean" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -26,13 +34,13 @@
           <div class="sidebar-sticky">
             <ul class="nav flex-column">
               <li class="nav-item">
-                <a class="nav-link active" href="/PROG3060Assignment1JV">
+                <a class="nav-link active" href="gac">
                   <span data-feather="layers"></span>
                   Geographic Area Classification<span class="sr-only">(current)</span>
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="agl">
+                <a class="nav-link" href="/PROG3060Assignment1JV/ageGroup">
                   <span data-feather="bar-chart-2"></span>
                   Age Group 
                 </a>

@@ -1,0 +1,41 @@
+/*
+ *  PROG3060
+ *   @author Jodi Visser
+ *   Assignment 1: JDBC Web Application using CanadaCensusDB
+ *		LoginProcess.java
+ *   	Date Created: February 16, 2018
+ */
+
+package prog3060.assignment1.jvisser.servlets;
+
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+@WebServlet("/loginprocess")
+public class LoginProcess extends HttpServlet {
+
+	private static final long serialVersionUID = 1L;
+
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		String username = req.getParameter("email");
+		String password = req.getParameter("password");
+		
+		HttpSession session = req.getSession();
+		
+		if(username == "jvisser6805" && password == "Access@34") {
+		
+			session.setAttribute("username", username);
+			session.setAttribute("password", password);
+			
+			req.getRequestDispatcher("/html/GeographicAreaClassification.jsp").forward(req, resp);
+		}
+	}
+}

@@ -1,3 +1,11 @@
+/*
+ *  PROG3060
+ *   @author Jodi Visser
+ *   Assignment 1: JDBC Web Application using CanadaCensusDB
+ *		ApplicationDao.java
+ *   	Date Created: February 16, 2018
+ */
+
 package prog3060.assignment1.jvisser.dao;
 
 
@@ -7,12 +15,26 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
 
+import javax.servlet.http.HttpServletRequest;
+
 import prog3060.assignment1.jvisser.models.AgeGroupInfoBean;
 import prog3060.assignment1.jvisser.models.GeoAreaClassBean;
 import prog3060.assignment1.jvisser.models.IndividualGeoAreaDetailsBean;
 
 public class ApplicationDao {
+	
+	//private HttpServletRequest request;
+	
+	//public ApplicationDao(HttpServletRequest req) {
+		
+	//	this.request = req;
+	//}
 
+	/**
+	 * @param connection
+	 * @return query results
+	 * @throws SQLException
+	 */
 	private static PreparedStatement GetGeographicAreaClassifications(Connection connection) throws SQLException
     {
         String sqlSelectQuery = "SELECT GEOGRAPHICAREAID, LEVEL, NAME FROM GEOGRAPHICAREA ORDER BY LEVEL ASC, NAME ASC";
@@ -22,6 +44,12 @@ public class ApplicationDao {
         return preparedStatement;
     }
 	
+	/**
+	 * @param connection
+	 * @param geographicAreaId
+	 * @return Query results
+	 * @throws SQLException
+	 */
 	private static PreparedStatement GetIndividualGeographicAreaDetails(Connection connection, String geographicAreaId) throws SQLException
     {
         String sqlSelectQuery = "SELECT G.NAME, G.CODE, G.LEVEL, A.COMBINED FROM GEOGRAPHICAREA As G JOIN AGE As A ON G.GEOGRAPHICAREAID = A.GEOGRAPHICAREA JOIN CENSUSYEAR As Y ON A.CENSUSYEAR = Y.CENSUSYEARID WHERE A.AGEGROUP = 1 AND Y.CENSUSYEAR = 2016 AND G.GEOGRAPHICAREAID = ?";
@@ -33,6 +61,14 @@ public class ApplicationDao {
         return preparedStatement;
     }
 	
+	
+	/**
+	 * @param connection
+	 * @param level
+	 * @param code
+	 * @return Query results
+	 * @throws SQLException
+	 */
 	private static PreparedStatement GetIndividualGeographicAreaDetailNames(Connection connection, String level, String code) throws SQLException
     {
         String sqlSelectQuery = "SELECT NAME FROM GEOGRAPHICAREA WHERE LEVEL = ? AND SUBSTR(CAST(ALTERNATIVECODE AS CHAR(10)), 1, 2) = ? ORDER BY NAME ASC";
@@ -45,6 +81,11 @@ public class ApplicationDao {
         return preparedStatement;
     }
 	
+	/**
+	 * @param connection
+	 * @return Query results
+	 * @throws SQLException
+	 */
 	private static PreparedStatement GetAllProvinces(Connection connection) throws SQLException
     {
         String sqlSelectQuery = "SELECT NAME FROM GEOGRAPHICAREA WHERE LEVEL = 1 ORDER BY NAME ASC";
@@ -54,6 +95,13 @@ public class ApplicationDao {
         return preparedStatement;
     }
 	
+	/**
+	 * @param connection
+	 * @param id
+	 * @param year
+	 * @return Query results
+	 * @throws SQLException
+	 */
 	private static PreparedStatement GetAgeGroup(Connection connection, int id, int year) throws SQLException
     {
         String sqlSelectQuery = "SELECT A.DESCRIPTION, SUM(AGE.MALE) As malepop, SUM(AGE.FEMALE) As femalepop FROM AGEGROUP As A JOIN AGE ON A.AGEGROUPID = AGE.AGEGROUP JOIN CENSUSYEAR As C ON AGE.CENSUSYEAR = C.CENSUSYEARID WHERE AGEGROUPID = ? AND C.CENSUSYEAR = ? GROUP BY A.DESCRIPTION";
@@ -66,6 +114,9 @@ public class ApplicationDao {
         return preparedStatement;
     }
 	
+	/**
+	 * @return
+	 */
 	public List<GeoAreaClassBean> GeographicAreaClassifications() {
 		
 		List<GeoAreaClassBean> tempList = new ArrayList<GeoAreaClassBean>();
@@ -107,6 +158,10 @@ public class ApplicationDao {
 		return tempList;
 	}
 	
+	/**
+	 * @param geographicAreaId
+	 * @return Details for a given Geographic Area
+	 */
 	public IndividualGeoAreaDetailsBean IndividualGeographicAreaDetails(String geographicAreaId) {
 		
 		IndividualGeoAreaDetailsBean temp = new IndividualGeoAreaDetailsBean();
@@ -148,6 +203,11 @@ public class ApplicationDao {
 		return temp;
 	}
 	
+	/**
+	 * @param level
+	 * @param code
+	 * @return returns a list of Geographic Area with its name, code, and total population for 2016 Census
+	 */
 	public List<String> IndividualGeographicAreaDetailNames(String level, String code) {
 		
 		List<String> tempList = new ArrayList<String>();
@@ -179,6 +239,9 @@ public class ApplicationDao {
 		return tempList;
 	}
 	
+	/**
+	 * @return List of Provinces
+	 */
 	public List<String> GetAllProvinceNames() {
 		
 		List<String> tempList = new ArrayList<String>();
@@ -210,6 +273,10 @@ public class ApplicationDao {
 		return tempList;
 	}
 	
+	/**
+	 * @param ageGroupId
+	 * @return list of age groups for a given census year and its male/female population
+	 */
 	public AgeGroupInfoBean GetAgeGroupInfo(int ageGroupId) {
 		
 		AgeGroupInfoBean temp = new AgeGroupInfoBean();

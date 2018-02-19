@@ -1,3 +1,11 @@
+/*
+ *  PROG3060
+ *   @author Jodi Visser
+ *   Assignment 1: JDBC Web Application using CanadaCensusDB
+ *		GeoAreaClassBean.java
+ *   	Date Created: February 16, 2018
+ */
+
 package prog3060.assignment1.jvisser.models;
 
 public class GeoAreaClassBean {

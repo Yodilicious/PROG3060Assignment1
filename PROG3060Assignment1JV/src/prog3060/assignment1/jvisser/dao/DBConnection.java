@@ -1,3 +1,11 @@
+/*
+ *  PROG3060
+ *   @author Jodi Visser
+ *   Assignment 1: JDBC Web Application using CanadaCensusDB
+ *		DBConnection.java
+ *   	Date Created: February 16, 2018
+ */
+
 package prog3060.assignment1.jvisser.dao;
 
 import java.sql.Connection;
@@ -9,6 +17,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 public class DBConnection {
 		
 	static final String CONNECTION_STRING = "jdbc:derby://localhost:1527/CanadaCensusDB";
@@ -17,17 +28,28 @@ public class DBConnection {
 	
 	public static Connection getConnectionToDatabase() throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
 		
-		Properties connectionProperties = new Properties();
-        connectionProperties.put("user", CONNECTION_USER);
-        connectionProperties.put("password", CONNECTION_PASSWORD);
-
-		Class.forName("org.apache.derby.jdbc.ClientDriver").newInstance();
+		//HttpSession session = req.getSession();
+	    //Connection connection = (Connection)session.getAttribute("connection");
+	    
+	    //if (connection == null) {
 		
-        Connection connection = DriverManager.getConnection(CONNECTION_STRING, connectionProperties);
-
-        connection.setAutoCommit(false);
-        connection.createStatement().executeUpdate("SET SCHEMA APP");
-
+	    	//String user = (String)session.getAttribute("username");
+	    	//String password = (String)session.getAttribute("password");
+	    	
+			Properties connectionProperties = new Properties();
+	        connectionProperties.put("user", CONNECTION_USER);
+	        connectionProperties.put("password", CONNECTION_PASSWORD);
+	
+			Class.forName("org.apache.derby.jdbc.ClientDriver").newInstance();
+			
+			Connection connection = DriverManager.getConnection(CONNECTION_STRING, connectionProperties);
+	
+	        connection.setAutoCommit(false);
+	        connection.createStatement().executeUpdate("SET SCHEMA APP");
+	        
+	        //session.setAttribute("connection", connection);
+	    //}
+	    
         return connection;
 	}
 }
