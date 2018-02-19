@@ -158,3 +158,11 @@
 0:0:0:0:0:0:0:1 - - [19/Feb/2018:11:05:37 -0500] "GET /PROG3060Assignment1JV/PROG3060Assignment1JV/css/signin.css HTTP/1.1" 200 2319
 0:0:0:0:0:0:0:1 - - [19/Feb/2018:11:05:48 -0500] "GET /PROG3060Assignment1JV/loginprocess?email=jvisser6805&password=password123 HTTP/1.1" 500 31908
 0:0:0:0:0:0:0:1 - - [19/Feb/2018:11:06:26 -0500] "GET /PROG3060Assignment1JV/html/IndividualGeographicAreaDetails.jsp HTTP/1.1" 500 3071
+127.0.0.1 - - [19/Feb/2018:11:07:26 -0500] "GET / HTTP/1.1" 404 1074
+0:0:0:0:0:0:0:1 - - [19/Feb/2018:11:07:26 -0500] "GET /PROG3060Assignment1JV/html/IndividualGeographicAreaDetails.jsp HTTP/1.1" 500 2414
+0:0:0:0:0:0:0:1 - - [19/Feb/2018:11:15:19 -0500] "GET /PROG3060Assignment1JV/ HTTP/1.1" 200 2319
+0:0:0:0:0:0:0:1 - - [19/Feb/2018:11:15:29 -0500] "GET /PROG3060Assignment1JV/ HTTP/1.1" 200 2319
+0:0:0:0:0:0:0:1 - - [19/Feb/2018:11:15:30 -0500] "GET /PROG3060Assignment1JV/PROG3060Assignment1JV/css/signin.css HTTP/1.1" 200 2319
+0:0:0:0:0:0:0:1 - - [19/Feb/2018:11:15:41 -0500] "GET /PROG3060Assignment1JV/loginprocess?email=jvisser6805&password=password123 HTTP/1.1" 500 31908
+0:0:0:0:0:0:0:1 - - [19/Feb/2018:11:16:00 -0500] "GET /PROG3060Assignment1JV/loginprocess?email=jvisser6805&password=password123 HTTP/1.1" 500 31908
+0:0:0:0:0:0:0:1 - - [19/Feb/2018:11:16:00 -0500] "GET /PROG3060Assignment1JV/PROG3060Assignment1JV/css/main.css HTTP/1.1" 200 2319
